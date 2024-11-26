@@ -17,3 +17,8 @@ class User(db.Model):
             "email": self.email,
             # Do not serialize the password as it's a security breach
         }
+    
+class LoggedInUser(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+

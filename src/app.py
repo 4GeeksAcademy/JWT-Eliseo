@@ -62,21 +62,6 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0  # Avoid cache memory
     return response
 
-@app.route('/api/login', methods=['POST'])
-def login():
-    email = request.json.get('email', None)
-    password = request.json.get('password', None)
-    user = User.query.filter_by(email=email).first()
-
-    if user and user.password == password:  
-        
-        token = create_access_token(identity=user.id)
-        return jsonify({
-            'token': token,
-            'user': {'email': user.email}
-        }), 200
-    else:
-        return jsonify({"msg": "Bad email or password"}), 401
 
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
